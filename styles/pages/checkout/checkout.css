@@ -224,3 +224,8 @@
 .is-editing-quantity .save-quantity-link { 
   display: initial; 
 }
+
+.is-editing-quantity .update-quantity-link, 
+.is-editing-quantity .quantity-label {
+  display: none; 
+}
