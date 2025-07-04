@@ -102,13 +102,18 @@ document.querySelectorAll('.js-delete-link').forEach(link => {
 
       const container = document.querySelector(`.js-cart-item-container-${productId}`)
       container.remove()    //removing from frontend
-
+      updateCartQuantity()    //when deleting
 
     })
   }) 
 
-let cartQuantity = 0
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity
-  })
-document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`
+function updateCartQuantity() {
+  let cartQuantity = 0
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity
+    })
+  document.querySelector('.js-return-to-home').innerHTML = `${cartQuantity} items`
+}
+updateCartQuantity()    //when loading
+
+
