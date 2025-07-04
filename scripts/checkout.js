@@ -131,7 +131,11 @@ document.querySelectorAll('.save-quantity-link').forEach(link => {
     const productId = link.dataset.productId
 
     const container = document.querySelector(`.js-cart-item-container-${productId}`)
+
+    const newQuantity = Number(container.querySelector('.quantity-input').value)   //gets all the elements(carts) having class: quantity-input, document.querySelector() selects the only the first cart having the class: quantity-input
+    console.log(newQuantity)
     container.classList.remove('is-editing-quantity')
+
 
   })
 })
