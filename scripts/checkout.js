@@ -38,7 +38,7 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary js-update-quantity-link" data-product-id="${matchingProduct.id}">
               Update
             </span>
-            <input class="quantity-input">
+            <input class="quantity-input js-quantity-input">
             <span class="save-quantity-link link-primary" data-product-id="${matchingProduct.id}">Save</span>
             <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
               Delete
@@ -127,23 +127,26 @@ document.querySelectorAll('.js-update-quantity-link').forEach(link => {
 })
 
 document.querySelectorAll('.save-quantity-link').forEach(link => {
+  const productId = link.dataset.productId
+  const container = document.querySelector(`.js-cart-item-container-${productId}`)
   link.addEventListener('click', () => {
-    const productId = link.dataset.productId
-
-    const container = document.querySelector(`.js-cart-item-container-${productId}`)
-
-    const newQuantity = Number(container.querySelector('.quantity-input').value)   //gets the input element for that specific cartItem, document.querySelector() selects the only the first cart having the class: quantity-input
-  
-    updateQuantity(productId, newQuantity)
-
-    container.querySelector('.js-quantity-label').innerHTML = newQuantity    //updates the: Quantity: __ for each specific cartItem, document.querySelector() only changes the quantity for the first element
-    updateCartQuantity()    //updates the header at top: Checkout(__)
-
-
-
-
-
-    container.classList.remove('is-editing-quantity')
+    handleUpdateQuantity(productId, container)  
+  })
+  container.querySelector('.js-quantity-input').addEventListener('keydown', event => {
+    if(event.key === 'Enter') {
+      handleUpdateQuantity(productId, container)
+    }
   })
 })
 
+function handleUpdateQuantity(productId, container) {
+ 
+  const newQuantity = Number(container.querySelector('.quantity-input').value)   //gets the input element for that specific cartItem, document.querySelector() selects the only the first cart having the class: quantity-input
+
+  updateQuantity(productId, newQuantity)    //updates the newQuantity in the cart
+
+  container.querySelector('.js-quantity-label').innerHTML = newQuantity    //updates the: Quantity: __ for each specific cartItem, document.querySelector() only changes the quantity for the first element
+  updateCartQuantity()    //updates the header at top: Checkout(__)
+
+  container.classList.remove('is-editing-quantity')
+}
