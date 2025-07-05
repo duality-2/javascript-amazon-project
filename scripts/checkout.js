@@ -33,7 +33,7 @@ cart.forEach((cartItem) => {
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label js-quantity-label">${cartItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary js-update-quantity-link" data-product-id="${matchingProduct.id}">
               Update
@@ -135,8 +135,13 @@ document.querySelectorAll('.save-quantity-link').forEach(link => {
     const newQuantity = Number(container.querySelector('.quantity-input').value)   //gets the input element for that specific cartItem, document.querySelector() selects the only the first cart having the class: quantity-input
   
     updateQuantity(productId, newQuantity)
-    console.log(cart)
-    
+
+    container.querySelector('.js-quantity-label').innerHTML = newQuantity    //updates the: Quantity: __ for each specific cartItem, document.querySelector() only changes the quantity for the first element
+    updateCartQuantity()    //updates the header at top: Checkout(__)
+
+
+
+
 
     container.classList.remove('is-editing-quantity')
   })
